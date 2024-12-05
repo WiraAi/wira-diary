@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wira's Diary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <h1 class="text-4xl font-bold text-blue-400">Wira's Digital Diary</h1>
+            </div>
+            <p class="text-gray-400 mt-2">Catat setiap momen berhargamu</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <i class="fas fa-star text-yellow-400 animate-pulse"></i>
+                <i class="fas fa-moon text-blue-300 hover:rotate-45 transition-transform"></i>
+                <i class="fas fa-cloud text-blue-200 hover:-translate-y-1 transition-transform"></i>
+            </div>
+        </header>
+
+        <!-- Form Entri -->
+        <div class="max-w-2xl mx-auto bg-slate-800 rounded-lg p-6 mb-8 relative">
+            <i class="fas fa-pencil absolute -top-3 -right-3 text-2xl text-blue-400 bg-slate-900 p-2 rounded-full"></i>
+            <form id="diaryForm" class="space-y-4">
+                <input type="hidden" id="entryId">
+                <div>
+                    <label class="block text-blue-400 mb-2">Judul</label>
+                    <input type="text" id="title" class="w-full bg-slate-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div>
+                    <label class="block text-blue-400 mb-2">Catatan</label>
+                    <textarea id="content" rows="4" class="w-full bg-slate-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg w-full">
+                    Simpan Catatan
+                </button>
+            </form>
+        </div>
+
+        <!-- Daftar Entri -->
+        <div id="entriesList" class="max-w-2xl mx-auto space-y-4">
+            <!-- Entri akan ditambahkan secara dinamis di sini -->
+        </div>
+    </div>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html> 

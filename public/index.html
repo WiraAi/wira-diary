@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wira's Diary</title>
+    
+    <!-- Favicon dan Chrome/Android integration -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color untuk Chrome mobile -->
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- Ganti CDN Tailwind dengan file CSS yang sudah di-build -->
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-custom {
+            background-color: #0f172a;
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        /* Mobile First: Gunakan background mobile sebagai default */
+        @media (max-width: 767px) {
+            .bg-custom {
+                background-image: url('images/background_diary_mobile.png');
+            }
+        }
+
+        /* Desktop: Gunakan background desktop untuk layar yang lebih besar */
+        @media (min-width: 768px) {
+            .bg-custom {
+                background-image: url('images/background_diary.png');
+                background-attachment: fixed;
+            }
+        }
+        
+        .content-wrapper {
+            background-color: rgba(15, 23, 42, 0.7);
+            min-height: 100vh;
+        }
+
+        #title {
+            color: #ffffff; 
+        }
+
+        #content {
+            color: #ffffff;
+        }
+
+        /* Tambahkan animasi baru */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-header {
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .animate-form {
+            animation: fadeInUp 1s ease-out 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .animate-entries {
+            animation: fadeIn 1s ease-out 0.6s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .animate-icon {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-custom min-h-screen">
+    <div class="content-wrapper min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <div class="flex justify-center items-center gap-3 mb-4">
+                    <h1 class="text-4xl font-bold text-blue-400">Wira's Diary</h1>
+                </div>
+                <p id="animated-text" class="text-gray-400 mt-2 min-h-[24px]"></p>
+                <div class="flex justify-center gap-4 mt-4">
+                    <i class="fas fa-star text-yellow-400 animate-pulse"></i>
+                    <i class="fas fa-moon text-blue-300 hover:rotate-45 transition-transform"></i>
+                    <i class="fas fa-cloud text-blue-200 hover:-translate-y-1 transition-transform"></i>
+                </div>
+            </header>
+
+            <!-- Form Entri -->
+            <div class="max-w-2xl mx-auto bg-slate-800/90 backdrop-blur-sm rounded-lg p-6 mb-8 relative hover:bg-slate-800/95 transition-colors animate-form">
+                <i class="fas fa-pencil absolute -top-3 -right-3 text-2xl text-blue-400 bg-slate-900 p-2 rounded-full"></i>
+                <form id="diaryForm" class="space-y-4">
+                    <input type="hidden" id="entryId">
+                    <div>
+                        <label class="block text-blue-400 mb-2">Judul</label>
+                        <input type="text" id="title" class="w-full bg-slate-700/90 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    </div>
+                    <div>
+                        <label class="block text-blue-400 mb-2">Catatan apa yang mau lu tinggalin?</label>
+                        <textarea id="content" rows="4" class="w-full bg-slate-700/90 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+                    </div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg w-full transition-colors">
+                        SIMPAN CATATAN NYA
+                    </button>
+                </form>
+            </div>
+
+            <!-- Daftar Entri -->
+            <div id="entriesList" class="max-w-2xl mx-auto space-y-4 animate-entries">
+                <!-- Entri akan ditambahkan secara dinamis di sini -->
+            </div>
+        </div>
+    </div>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js?v=1.0.0"></script>
+</body>
+</html> 
