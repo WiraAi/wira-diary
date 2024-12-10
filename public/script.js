@@ -186,9 +186,15 @@ class DiaryManager {
                 <div class="bg-slate-700/50 p-3 rounded-lg">
                     <div class="flex justify-between items-start">
                         <p class="text-sm font-semibold text-blue-300">${comment.name}</p>
-                        <p class="text-xs text-gray-400">
-                            ${comment.timestamp ? new Date(comment.timestamp.toDate()).toLocaleDateString('id-ID') : ''}
-                        </p>
+                        <div class="flex items-center gap-2">
+                            <p class="text-xs text-gray-400">
+                                ${comment.timestamp ? new Date(comment.timestamp.toDate()).toLocaleDateString('id-ID') : ''}
+                            </p>
+                            <button onclick="diaryManager.deleteComment('${comment.id}')" 
+                                    class="text-red-400 hover:text-red-300 transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
                     </div>
                     <p class="text-sm text-gray-300 mt-2">${comment.comment}</p>
                     
@@ -208,9 +214,15 @@ class DiaryManager {
                             <div class="bg-slate-700/70 p-2 rounded-lg">
                                 <div class="flex justify-between items-start">
                                     <p class="text-sm font-semibold text-blue-300">${reply.name}</p>
-                                    <p class="text-xs text-gray-400">
-                                        ${reply.timestamp ? new Date(reply.timestamp.toDate()).toLocaleDateString('id-ID') : ''}
-                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-xs text-gray-400">
+                                            ${reply.timestamp ? new Date(reply.timestamp.toDate()).toLocaleDateString('id-ID') : ''}
+                                        </p>
+                                        <button onclick="diaryManager.deleteComment('${reply.id}')" 
+                                                class="text-red-400 hover:text-red-300 transition-colors">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <p class="text-sm text-gray-300 mt-1">${reply.comment}</p>
                             </div>
@@ -359,6 +371,18 @@ class DiaryManager {
         } catch (error) {
             console.error("Error adding reply:", error);
             alert('Gagal nambahin balasan lu');
+        }
+    }
+
+    async deleteComment(commentId) {
+        if (confirm('Yakin mau menghapus komentar ini?')) {
+            try {
+                await deleteDoc(doc(db, 'comments', commentId));
+                // Komentar akan diupdate otomatis karena menggunakan onSnapshot
+            } catch (error) {
+                console.error("Error deleting comment:", error);
+                alert('Gagal menghapus komentar');
+            }
         }
     }
 }
